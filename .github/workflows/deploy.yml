@@ -1,0 +1,27 @@
+name: deploy
+on:
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: master
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Use Node 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: "16.x"
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - name: Install and deploy
+        run: |
+          npm install
+          NODE_ENV=production npm run build
+      #    sudo supervisorctl stop content
+          rm -rf /var/www/plezanjenet/content/*
+          cp -r ./ /var/www/plezanjenet/content/
+          cp /var/www/plezanjenet/.env.content /var/www/plezanjenet/content/.env
+      # - name: Start server
+      #   run: |
+      #     sudo supervisorctl start content
