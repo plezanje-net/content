@@ -1,6 +1,5 @@
 name: deploy
-on:
-  workflow_dispatch:
+on: [push]
 jobs:
   deploy:
     runs-on: master
