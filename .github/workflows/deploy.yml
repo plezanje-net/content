@@ -17,6 +17,10 @@ jobs:
         run: |
           npm install
           NODE_ENV=production npm run build
+          sudo supervisorctl stop content
           rm -rf /var/www/plezanjenet/content/*
           cp -r ./ /var/www/plezanjenet/content/
           cp /var/www/plezanjenet/.env.content /var/www/plezanjenet/content/.env
+      - name: Start server
+        run: |
+          sudo supervisorctl start content
