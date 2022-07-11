@@ -16,7 +16,7 @@ jobs:
       - name: Install and deploy
         run: |
           npm install
-          NODE_ENV=production npm run build
+          npm run build
           sudo supervisorctl stop content
           rm -rf /var/www/plezanjenet/content/*
           cp -r ./ /var/www/plezanjenet/content/
