@@ -23,7 +23,7 @@ jobs:
           cp ${{ secrets.PROJECT_PATH }}/cms/.env ${{ secrets.PROJECT_PATH }}/cms/strapi/.env
           ln -s ${{ secrets.PROJECT_PATH }}/cms/public/uploads ${{ secrets.PROJECT_PATH }}/cms/strapi/public/uploads
       - name: Build admin
-        working-directory: ${{ secrets.PROJECT_PATH }}/cms
+        working-directory: ${{ secrets.PROJECT_PATH }}/cms/strapi
         run: |
           npm run build
       - name: Start server
