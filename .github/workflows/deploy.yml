@@ -17,10 +17,15 @@ jobs:
         run: |
           npm install
           sudo supervisorctl stop content
-          rm -rf /var/www/plezanjenet/content/*
-          cp -r ./ /var/www/plezanjenet/content/
-          cp /var/www/plezanjenet/.env.content /var/www/plezanjenet/content/.env
-          cd /var/www/plezanjenet/content && npm run build
+          rm -rf ./public/uploads
+          rm -rf ${{ secrets.PROJECT_PATH }}/content/strapi/
+          cp -r ./ ${{ secrets.PROJECT_PATH }}/content/strapi/
+          cp ${{ secrets.PROJECT_PATH }}/content/.env ${{ secrets.PROJECT_PATH }}/content/strapi/.env
+          ln -s ${{ secrets.PROJECT_PATH }}/content/public/uploads ${{ secrets.PROJECT_PATH }}/content/strapi/public/uploads
+      - name: Build admin
+        working-directory: ${{ secrets.PROJECT_PATH }}/content
+        run: |
+          npm run build
       - name: Start server
         run: |
           sudo supervisorctl start content
