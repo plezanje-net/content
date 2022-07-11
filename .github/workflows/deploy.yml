@@ -16,11 +16,11 @@ jobs:
       - name: Install and deploy
         run: |
           npm install
-          npm run build
           sudo supervisorctl stop content
           rm -rf /var/www/plezanjenet/content/*
           cp -r ./ /var/www/plezanjenet/content/
           cp /var/www/plezanjenet/.env.content /var/www/plezanjenet/content/.env
+          cd /var/www/plezanjenet/content && npm run build
       - name: Start server
         run: |
           sudo supervisorctl start content
