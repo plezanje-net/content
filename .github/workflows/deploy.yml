@@ -16,16 +16,16 @@ jobs:
       - name: Install and deploy
         run: |
           npm install
-          sudo supervisorctl stop content
+          sudo supervisorctl stop cms
           rm -rf ./public/uploads
-          rm -rf ${{ secrets.PROJECT_PATH }}/content/strapi/
-          cp -r ./ ${{ secrets.PROJECT_PATH }}/content/strapi/
-          cp ${{ secrets.PROJECT_PATH }}/content/.env ${{ secrets.PROJECT_PATH }}/content/strapi/.env
-          ln -s ${{ secrets.PROJECT_PATH }}/content/public/uploads ${{ secrets.PROJECT_PATH }}/content/strapi/public/uploads
+          rm -rf ${{ secrets.PROJECT_PATH }}/cms/strapi/
+          cp -r ./ ${{ secrets.PROJECT_PATH }}/cms/strapi/
+          cp ${{ secrets.PROJECT_PATH }}/cms/.env ${{ secrets.PROJECT_PATH }}/cms/strapi/.env
+          ln -s ${{ secrets.PROJECT_PATH }}/cms/public/uploads ${{ secrets.PROJECT_PATH }}/cms/strapi/public/uploads
       - name: Build admin
-        working-directory: ${{ secrets.PROJECT_PATH }}/content
+        working-directory: ${{ secrets.PROJECT_PATH }}/cms
         run: |
           npm run build
       - name: Start server
         run: |
-          sudo supervisorctl start content
+          sudo supervisorctl start cms
