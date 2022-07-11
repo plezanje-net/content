@@ -18,12 +18,12 @@ jobs:
           npm install
           sudo supervisorctl stop cms
           rm -rf ./public/uploads
-          rm -rf ${{ secrets.PROJECT_PATH }}/cms/strapi/
-          cp -r ./ ${{ secrets.PROJECT_PATH }}/cms/strapi/
-          cp ${{ secrets.PROJECT_PATH }}/cms/.env ${{ secrets.PROJECT_PATH }}/cms/strapi/.env
-          ln -s ${{ secrets.PROJECT_PATH }}/cms/public/uploads ${{ secrets.PROJECT_PATH }}/cms/strapi/public/uploads
+          rm -rf ${{ secrets.PROJECT_PATH }}cms/strapi/
+          cp -r ./ ${{ secrets.PROJECT_PATH }}cms/strapi/
+          cp ${{ secrets.PROJECT_PATH }}cms/.env ${{ secrets.PROJECT_PATH }}cms/strapi/.env
+          ln -s ${{ secrets.PROJECT_PATH }}cms/uploads ${{ secrets.PROJECT_PATH }}cms/strapi/public/uploads
       - name: Build admin
-        working-directory: ${{ secrets.PROJECT_PATH }}/cms/strapi
+        working-directory: ${{ secrets.PROJECT_PATH }}cms/strapi
         run: |
           npm run build
       - name: Start server
